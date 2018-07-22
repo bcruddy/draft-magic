@@ -57,5 +57,6 @@ passport.use(jwtLogin);
 module.exports = {
     configureJwtStrategy,
     configureLocalStrategy,
-    tokenForUser
+    tokenForUser,
+    requireSignIn: passport.authenticate('local', {session: false})
 };

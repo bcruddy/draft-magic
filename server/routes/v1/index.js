@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
-router.get('/test', (req, res) => {
-    res.send('nice!');
+router.get('/ping', (req, res) => {
+    return res.send('ok');
 });
 
 module.exports = router;

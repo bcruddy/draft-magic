@@ -22,19 +22,19 @@ const createUser = async ({email, password}) => {
 
 const findUser = async ({id, email}) => {
     if (id) {
-        const {rows} = await this.findUserById(id);
+        const {rows} = await findUserById(id);
 
         return rows[0];
     }
     if (email) {
-        const {rows} = await this.findUserByEmail(email);
+        const {rows} = await findUserByEmail(email);
 
         return rows[0];
     }
 };
 
 const findUserByEmail = async (email) => {
-    return db.oneOrNone(`
+    return db.query(`
         SELECT *
         FROM users
         WHERE email=$1
@@ -42,7 +42,7 @@ const findUserByEmail = async (email) => {
 };
 
 const findUserById = async (id) => {
-    return db.oneOrNone(`
+    return db.query(`
         SELECT *
         FROM users
         WHERE id=$1
