@@ -42,6 +42,10 @@ export default {
 </script>
 
 <style lang="scss">
+html,
+body {
+    font-size: 16px;
+}
 #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -58,5 +62,13 @@ export default {
             color: #42b983;
         }
     }
+}
+
+button,
+p,
+input,
+select {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    font-size: 1em;
 }
 </style>
