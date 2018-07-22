@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Home from './views/Home.vue';
 import About from './views/About.vue';
 import Login from './views/Login.vue';
+import Draft from './views/Draft.vue';
 import {store, constants} from '../src/state/';
 
 const {AUTH_ROLES} = constants;
@@ -20,6 +21,12 @@ const routes = [
         path: '/about',
         name: 'about',
         component: About,
+        beforeEnter: authCheck(AUTH_ROLES.user)
+    },
+    {
+        path: '/draft',
+        name: 'draft',
+        component: Draft,
         beforeEnter: authCheck(AUTH_ROLES.user)
     },
     {
