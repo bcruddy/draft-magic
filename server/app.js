@@ -17,12 +17,12 @@ app
     .use(helmet())
     .use(urlCleaner())
     .use(noSlash())
-    .use('/js', express.static(`${frontendAssetPath}/js`))
-    .use('/css', express.static(`${frontendAssetPath}/css`))
-    .use('/img', express.static(`${frontendAssetPath}/img`))
-    .use(authRouter)
+    .get('/js', express.static(`${frontendAssetPath}/js`))
+    .get('/css', express.static(`${frontendAssetPath}/css`))
+    .get('/img', express.static(`${frontendAssetPath}/img`))
     .use('/api/v1', requireSignIn, apiRouter)
-    .get('*', (req, res) => {
+    .use('/api', authRouter)
+    .get('/*', (req, res) => {
         res.sendFile(path.resolve(__dirname, '..', 'dist/index.html'));
     });
 

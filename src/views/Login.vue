@@ -3,14 +3,14 @@
         <h1>login</h1>
         <div class="login-form">
             <input
-                v-model="username"
+                v-model="email"
                 type="text"
                 placeholder="foo@bar.com" />
             <input
                 v-model="password"
                 type="password"
                 placeholder="password" />
-            <button @click="login(username, password)">
+            <button @click="login(email, password)">
                 Login
             </button>
         </div>
@@ -24,7 +24,7 @@ export default {
     name: 'login',
     data () {
         return {
-            username: '',
+            email: '',
             password: ''
         };
     },
@@ -32,8 +32,8 @@ export default {
         ...mapActions({
             _login: 'auth/login'
         }),
-        login (username, password) {
-            return this._login({username, password})
+        login (email, password) {
+            return this._login({email, password})
                 .then(() => {
                     this.$router.push('/');
                 });

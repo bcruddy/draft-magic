@@ -8,15 +8,21 @@ export default async function (endpoint, externalConfig = {}) {
         }
     };
 
+    if (store.state.auth.token) {
+        config.headers.Authorization = store.state.auth.token;
+    }
+
     return fetch(endpoint, Object.assign({}, config, externalConfig))
         .then(res => res.json())
         .catch(err => {
             if (err.status === 401) {
-                return store.dispatch('logout');
+                store.dispatch('auth/logout');
             }
 
             const error = new Error('fetch.catch');
             error.innerError = err;
+
+            console.error(error);
 
             throw error;
         });
