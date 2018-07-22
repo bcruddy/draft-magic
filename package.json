@@ -12,12 +12,17 @@
     "migrate": "node-pg-migrate"
   },
   "dependencies": {
+    "bcrypt": "^3.0.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "express-url-cleaner": "0.0.9",
     "helmet": "^3.12.1",
+    "jwt-simple": "^0.5.1",
     "lodash": "^4.17.10",
     "no-slash": "^1.2.15",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
     "pg": "^7.4.3",
     "register-service-worker": "^1.0.0",
     "vue": "^2.5.16",
