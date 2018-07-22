@@ -1,12 +1,12 @@
+// TODO: persist auth with localStorage
+
 import fetch from '@/utils/fetch';
 import {AUTH_ROLES} from '../constants';
 
-const tokenFromLocalStorage = window.localStorage.getItem('draftmagic:jwt');
-
 export const state = {
-    token: tokenFromLocalStorage || '',
+    token: '',
     user: {
-        role: tokenFromLocalStorage && 40 || AUTH_ROLES.unauthenticated // TODO: roels
+        role: 0
     }
 };
 

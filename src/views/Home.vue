@@ -1,17 +1,16 @@
 <template>
     <div class="home">
-        <img src="../assets/logo.png">
-        <HelloWorld msg="Welcome to Your Vue.js App"/>
+        <Landing />
     </div>
 </template>
 
 <script>
-import HelloWorld from '@/components/HelloWorld.vue';
+import Landing from '@/components/Landing.vue';
 
 export default {
     name: 'home',
     components: {
-        HelloWorld
+        Landing
     }
 };
 </script>
