@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const db = require('../db');
+const db = require('./db');
 const saltRounds = 12;
 
 const createUser = async ({email, password}) => {
