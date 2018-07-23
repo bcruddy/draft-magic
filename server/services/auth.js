@@ -37,7 +37,7 @@ const jwtOptions = {
 };
 const configureJwtStrategy = async ({sub}, done) => {
     try {
-        const user = await findUser({id: sub.id});
+        const user = await findUser({id: sub});
 
         if (user) {
             return done(null, user);
@@ -58,5 +58,6 @@ module.exports = {
     configureJwtStrategy,
     configureLocalStrategy,
     tokenForUser,
-    requireSignIn: passport.authenticate('local', {session: false})
+    requireSignIn: passport.authenticate('local', {session: false}),
+    requireAuth: passport.authenticate('jwt', {session: false})
 };

@@ -3,7 +3,7 @@ const {
     createDraft,
     getDraftById,
     getDrafts
-} = require('../../services/draft');
+} = require('../../services/drafts');
 
 router.get('/drafts', async (req, res) => {
     try {

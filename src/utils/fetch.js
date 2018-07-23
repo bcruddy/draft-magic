@@ -22,7 +22,7 @@ export default async function (endpoint, externalConfig = {}) {
             const error = new Error('fetch.catch');
             error.innerError = err;
 
-            console.error(error);
+            console.error(error, err);
 
             throw error;
         });

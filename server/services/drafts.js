@@ -1,11 +1,12 @@
-const db = require('/.db');
+const db = require('./db');
 
 const getDrafts = async (user) => {
-    const {rows: drafts} = await db.query(`
+    const query = `
         SELECT *
-        FROM drafts
-        WHERE userId=$1
-    `, [user.id]);
+        FROM drafts d
+        WHERE "userId" = $1
+    `;
+    const {rows: drafts} = await db.query(query, [user.id]);
 
     return drafts;
 };
@@ -14,7 +15,7 @@ const getDraftById = async (id) => {
     const {rows} = await db.query(`
         SELECT *
         FROM drafts
-        WHERE id=$1
+        WHERE id = $1
     `, [id]);
     const [draft] = rows;
 
@@ -32,8 +33,8 @@ const createDraft = async (user, draft) => {
 
     const created = await db.query(`
         INSERT INTO drafts
-        (name,position,ppr,size,snapshot,userId)
-        VALUES($1,$2,$3,$4,$5,$6)
+        (name, position, ppr, size, snapshot, "userId")
+        VALUES($1, $2, $3, $4, $5, $6)
         RETURNING *
     `, [name, position, ppr, size, snapshot, user.id]);
 

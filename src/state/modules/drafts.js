@@ -35,10 +35,10 @@ export const actions = {
         commit('setLoading', {loading: true});
 
         try {
-            const list = await fetch('/api/drafts');
+            const created = await fetch('/api/v1/drafts');
 
-            commit('setList', {list});
-            commit('setMap', {map: keyBy(list, 'id')});
+            commit('setList', {list: created.drafts});
+            commit('setMap', {map: keyBy(created.drafts, 'id')});
         }
         finally {
             commit('setLoading', {loading: false});
@@ -46,15 +46,16 @@ export const actions = {
     },
     async create ({commit}, {draft}) {
         commit('setLoading', {loading: true});
-        commit('setActive', {draft});
+        
 
         try {
-            const created = await fetch('/api/drafts', {
-                type: 'POST',
+            const created = await fetch('/api/v1/draft', {
+                method: 'POST',
                 body: JSON.stringify(draft)
             });
 
-            commit('addCreatedDraft', {draft: created});
+            commit('setActive', {draft: created.draft});
+            commit('addCreatedDraft', {draft: created.draft});
         }
         finally {
             commit('setLoading', {loading: false});

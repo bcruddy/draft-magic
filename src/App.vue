@@ -42,6 +42,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~flexboxgrid/css/flexboxgrid.css';
+
 html,
 body {
     font-size: 16px;
