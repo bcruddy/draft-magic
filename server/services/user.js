@@ -16,20 +16,23 @@ const createUser = async ({email, password}) => {
         VALUES($1, $2)
         RETURNING *
     `, [email, hash]);
+    const [user] = rows;
 
-    return rows[0];
+    return user;
 };
 
 const findUser = async ({id, email}) => {
     if (id) {
         const {rows} = await findUserById(id);
+        const [user] = rows;
 
-        return rows[0];
+        return user;
     }
     if (email) {
         const {rows} = await findUserByEmail(email);
+        const [user] = rows;
 
-        return rows[0];
+        return user;
     }
 };
 

@@ -1,12 +1,11 @@
 const db = require('./db');
 
 const getDrafts = async (user) => {
-    const query = `
+    const {rows: drafts} = await db.query(`
         SELECT *
         FROM drafts d
         WHERE "userId" = $1
-    `;
-    const {rows: drafts} = await db.query(query, [user.id]);
+    `, [user.id]);
 
     return drafts;
 };

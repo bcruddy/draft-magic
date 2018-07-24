@@ -8,16 +8,19 @@ pool.on('error', (err) => {
 });
 
 const query = async (...args) => {
-    try {
-        const client = await pool.connect();
-        const result = await client.query(...args);
+    let client;
 
-        client.release();
+    try {
+        client = await pool.connect();
+        const result = await client.query(...args);
 
         return result;
     }
     catch (ex) {
         console.error('Error querying database', ex);
+    }
+    finally {
+        client.release(); // always release the client, even when query fails
     }
 };
 
