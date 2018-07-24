@@ -2,10 +2,10 @@
     <div class="landing">
         <h1>welcome {{user.email}}</h1>
         <div class="row">
-            <div class="col-md-4">
-                <button @click="createDraft">Create Draft</button>
-            </div>
-            <div class="col-md-8">
+            <div class="col-md-10 offset-md-1">
+                <div class="card">
+                    <button @click="createDraft">Create Draft</button>
+                </div>
                 <div class="card">
                     <h3>Past Drafts</h3>
                     <p v-if="!drafts.length">

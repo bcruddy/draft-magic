@@ -1,10 +1,14 @@
 import fetch from '@/utils/fetch';
+import findIndex from 'lodash/findIndex';
 import keyBy from 'lodash/keyBy';
 
 export const state = {
     active: null,
     list: [],
-    map: {}
+    map: {},
+    availablePlayers: [],
+    draftedPlayers: [],
+    takenPlayers: []
 };
 
 export const mutations = {
@@ -19,6 +23,9 @@ export const mutations = {
     setActive (state, {draft}) {
         state.active = draft;
     },
+    setAvailablePlayers (state, {availablePlayers}) {
+        state.availablePlayers = availablePlayers;
+    },
     setList (state, {list}) {
         state.list = list;
     },
@@ -27,6 +34,18 @@ export const mutations = {
     },
     setMap (state, {map}) {
         state.map = map;
+    },
+    setPlayerDrafted (state, {player}) {
+        const index = findIndex(state.availablePlayers, {Rank: player.Rank});
+    
+        state.availablePlayers.splice(index, 1);
+        state.draftedPlayers.push(player);
+    },
+    setPlayerTaken (state, {player}) {
+        const index = findIndex(state.availablePlayers, {Rank: player.Rank});
+    
+        state.availablePlayers.splice(index, 1);
+        state.draftedPlayers.push(player);
     }
 };
 
@@ -60,5 +79,23 @@ export const actions = {
         finally {
             commit('setLoading', {loading: false});
         }
+    },
+    async getAvailablePlayers ({commit}) {
+        commit('setLoading', {loading: true});
+
+        try {
+            const availablePlayers = await fetch('/api/v1/draft/board');
+            
+            commit('setAvailablePlayers', {availablePlayers});
+        }
+        finally {
+            commit('setLoading', {loading: false});
+        }
+    },
+    async draftPlayer ({commit}, {player}) {
+        commit('setPlayerDrafted', {player});
+    },
+    async markPlayerDrafted ({commit}, {player}) {
+        commit('setPlayerTaken', {player});
     }
 };
