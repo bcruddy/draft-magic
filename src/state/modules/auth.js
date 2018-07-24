@@ -1,7 +1,7 @@
-// TODO: persist auth with localStorage
-
 import fetch from '@/utils/fetch';
 import {AUTH_ROLES} from '../constants';
+
+const {localStorage} = window;
 
 export const state = {
     token: '',
@@ -13,14 +13,29 @@ export const state = {
 export const mutations = {
     setToken (state, {token}) {
         state.token = token;
-        window.localStorage.setItem('draftmagic:jwt', token);
+        localStorage.setItem('draftmagic:jwt', token);
     },
     setUser (state, {user}) {
         state.user = user;
+        localStorage.setItem(
+            'draftmagic:user',
+            typeof user === 'object' ? JSON.stringify(user) : user
+        );
     }
 };
 
 export const actions = {
+    async init ({commit}) {
+        const token = localStorage.getItem('draftmagic:jwt');
+        const user = localStorage.getItem('draftmagic:user');
+
+        if (!token || !user) {
+            return;
+        }
+
+        commit('setToken', {token});
+        commit('setUser', {user: JSON.parse(user)});
+    },
     async login ({commit}, {email, password}) {
         const config = {
             method: 'POST',

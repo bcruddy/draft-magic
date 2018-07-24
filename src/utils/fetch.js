@@ -2,7 +2,6 @@ import store from '@/state/store';
 
 export default async function (endpoint, externalConfig = {}) {
     const config = {
-        credentials: 'same-origin',
         headers: {
             'Content-Type': 'application/json; charset=utf-8'
         }
