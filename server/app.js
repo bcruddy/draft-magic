@@ -7,7 +7,7 @@ const urlCleaner = require('express-url-cleaner');
 
 const apiRouter = require('./routes/v1');
 const authRouter = require('./routes/auth');
-const {requireSignIn} = require('./services/auth');
+const {requireAuth} = require('./services/auth');
 
 const app = express();
 const frontendAssetPath = path.join(__dirname, '..', 'dist');
@@ -20,7 +20,7 @@ app
     .get('/js', express.static(`${frontendAssetPath}/js`))
     .get('/css', express.static(`${frontendAssetPath}/css`))
     .get('/img', express.static(`${frontendAssetPath}/img`))
-    .use('/api/v1', requireSignIn, apiRouter)
+    .use('/api/v1', requireAuth, apiRouter)
     .use('/api', authRouter)
     .get('/*', (req, res) => {
         res.sendFile(path.resolve(__dirname, '..', 'dist/index.html'));

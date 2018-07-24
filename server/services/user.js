@@ -37,7 +37,7 @@ const findUserByEmail = async (email) => {
     return db.query(`
         SELECT *
         FROM users
-        WHERE email=$1
+        WHERE email = $1
     `, [email]);
 };
 
@@ -45,7 +45,7 @@ const findUserById = async (id) => {
     return db.query(`
         SELECT *
         FROM users
-        WHERE id=$1
+        WHERE id = $1
     `, [id]);
 };
 
