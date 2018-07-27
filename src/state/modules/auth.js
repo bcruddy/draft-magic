@@ -6,7 +6,7 @@ const {localStorage} = window;
 export const state = {
     token: '',
     user: {
-        role: 0
+        role: AUTH_ROLES.unauthenticated
     }
 };
 
@@ -27,7 +27,7 @@ export const mutations = {
 export const actions = {
     async init ({commit}) {
         const token = localStorage.getItem('draftmagic:jwt');
-        const user = localStorage.getItem('draftmagic:user');
+        const user = localStorage.getItem('draftmagic:user'); // decode jwt instead of storing the whole user object
 
         if (!token || !user) {
             return;
