@@ -67,8 +67,15 @@ export default {
         }
 
         const {rank, adp} = this.player;
-        this.isRankSteal = (rank - adp) < -2;
-        this.isRankReach = (rank - adp) > 2;
+
+        // const projectedRound = adp % 12;
+
+        // this.isRankSteal = (rank - adp) < (-.5 * projectedRound);
+        // this.isRankReach = (rank - adp) > (.5 * projectedRound);
+        this.isRankSteal = (adp - rank) > 2;
+        this.isRankReach = (adp - rank) < -2;
+        // this.isRankSteal = vsadp.includes('-');
+        // this.isRankReach = vsadp.includes('+');
     }
 };
 </script>
