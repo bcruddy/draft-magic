@@ -1,6 +1,6 @@
 const router = require('express').Router();
-const standardRankings = require('../../../data/2018-07-23_standard.json');
-// const pprRankings = require('../../../data/2018-07-23_ppr.json');
+// const rankings = require('../../../data/2018-07-23_standard.json');
+const rankings = require('../../../data/2018-08-28_ppr.json');
 const {
     createDraft,
     getDraftById,
@@ -22,7 +22,7 @@ router.get('/drafts', async (req, res) => {
 });
 
 router.get('/draft/board', async (req, res) => {
-    res.json(standardRankings);
+    res.json(rankings);
 });
 
 router.get('/draft/:id', async (req, res) => {

@@ -15,18 +15,44 @@ async function convertCsvToJson () {
 
         const content = await csv().fromFile(csvPath);
 
-        const players = content.map(p => {
-            try {
-                p.vsADP = p.vs[' ADP'];
-            
-                delete p.vs;
-            }
-            catch {
-                p.vsADP = '';
-            }
+        const players = content
+            .reduce((list, p) => {
+                try {
+                    p.vsADP = p.vs[' ADP'];
+                
+                    delete p.vs;
+                }
+                catch (ex) {
+                    p.vsADP = '';
+                }
 
-            return p;
-        });
+                const player = Object.entries(p)
+                    .reduce((item, [key, value]) => {
+                        item[key.toLowerCase()] = value;
+
+                        return item;
+                    }, {});
+
+                if (player.vsadp) {
+                    list.push(player);
+                }
+
+                return list;
+            }, [])
+            .sort((a, b) => {
+                const aRank = parseInt(a.rank, 10);
+                const bRank = parseInt(b.rank, 10);
+
+                if (aRank === bRank) {
+                    return 0;
+                }
+
+                if (!aRank || !bRank) {
+                    return -1;
+                }
+                
+                return aRank > bRank ? 1 : -1;
+            });
 
         await write(out, JSON.stringify(players, null, 4));
     });

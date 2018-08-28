@@ -1,36 +1,71 @@
 <template>
     <div class="draft-board">
-        <div class="col-md-6">
+        <div class="player-column">
             <table>
                 <thead>
                     <tr>
                         <th>Rank</th>
+                        <th>ADP</th>
                         <th>Player</th>
                         <th>Pos</th>
                         <th>Bye</th>
-                        <th>ADP</th>
                         <th>vsADP</th>
                         <th></th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr
-                        v-for="player in availablePlayers"
-                        :key="player.id">
-                        <td>{{player.Rank}}</td>
-                        <td>{{player.Overall}}</td>
-                        <td>{{player.Pos}}</td>
-                        <td>{{player.Bye}}</td>
-                        <td>{{player.ADP}}</td>
-                        <td>{{player.vsADP}}</td>
-                        <td>
-                            <button @click="draft({player})">Draft</button>
-                        </td>
-                        <td>
-                            <button @click="taken({player})">Taken</button>
-                        </td>
+                    <player
+                        v-for="(player, index) in availablePlayers"
+                        :key="player.id"
+                        :player="player"
+                        :index="index"
+                        type="available" />
+                </tbody>
+            </table>
+        </div>
+        <div class="player-column">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>ADP</th>
+                        <th>Player</th>
+                        <th>Pos</th>
+                        <th>Bye</th>
+                        <th>vsADP</th>
+                        <th></th>
+                        <th></th>
                     </tr>
+                </thead>
+                <tbody>
+                    <player
+                        v-for="player in draftedPlayers"
+                        :key="player.id"
+                        :player="player"
+                        type="drafted" />
+                </tbody>
+            </table>
+            <hr />
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>ADP</th>
+                        <th>Player</th>
+                        <th>Pos</th>
+                        <th>Bye</th>
+                        <th>vsADP</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <player
+                        v-for="player in takenPlayers"
+                        :key="player.id"
+                        :player="player"
+                        type="taken" />
                 </tbody>
             </table>
         </div>
@@ -39,15 +74,18 @@
 
 <script>
 import {mapActions, mapState} from 'vuex';
-import fetch from '@/utils/fetch';
+import Player from './Player.vue';
 
 export default {
     name: 'DraftBoard',
+    components: {
+        Player
+    },
     computed: {
         ...mapState({
             availablePlayers: state => state.drafts.availablePlayers,
             draftedPlayers: state => state.drafts.draftedPlayers,
-            takenPlayer: state => state.drafts.takenPlayers
+            takenPlayers: state => state.drafts.takenPlayers
         })
     },
     async created () {
@@ -55,13 +93,29 @@ export default {
     },
     methods: {
         ...mapActions({
-            getAvailablePlayers: 'drafts/getAvailablePlayers',
-            draft: 'drafts/draftPlayer',
-            taken: 'drafts/markPlayerDrafted'
+            getAvailablePlayers: 'drafts/getAvailablePlayers'
         })
     }
 };
 </script>
 
 <style scoped lang="scss">
+.draft-board {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+
+    .player-column {
+        flex-basis: 49%;
+    }
+}
+
+table {
+    width: 100%;
+
+    th,
+    td {
+        text-align: left;
+    }
+}
 </style>

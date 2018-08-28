@@ -1,7 +1,14 @@
 import fetch from '@/utils/fetch';
 import {AUTH_ROLES} from '../constants';
 
-const {localStorage} = window;
+const {atob, localStorage} = window;
+
+export const decodeJwt = token => {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace('-', '+').replace('_', '/');
+
+    return JSON.parse(atob(base64));
+};
 
 export const state = {
     token: '',
@@ -16,25 +23,21 @@ export const mutations = {
         localStorage.setItem('draftmagic:jwt', token);
     },
     setUser (state, {user}) {
+        console.log(user);
         state.user = user;
-        localStorage.setItem(
-            'draftmagic:user',
-            typeof user === 'object' ? JSON.stringify(user) : user
-        );
     }
 };
 
 export const actions = {
     async init ({commit}) {
         const token = localStorage.getItem('draftmagic:jwt');
-        const user = localStorage.getItem('draftmagic:user'); // decode jwt instead of storing the whole user object
 
-        if (!token || !user) {
+        if (!token) {
             return;
         }
 
         commit('setToken', {token});
-        commit('setUser', {user: JSON.parse(user)});
+        commit('setUser', {user: decodeJwt(token)});
     },
     async login ({commit}, {email, password}) {
         const config = {

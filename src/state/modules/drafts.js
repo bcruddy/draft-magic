@@ -37,15 +37,15 @@ export const mutations = {
     },
     setPlayerDrafted (state, {player}) {
         const index = findIndex(state.availablePlayers, {Rank: player.Rank});
-    
+
         state.availablePlayers.splice(index, 1);
         state.draftedPlayers.push(player);
     },
     setPlayerTaken (state, {player}) {
         const index = findIndex(state.availablePlayers, {Rank: player.Rank});
-    
+
         state.availablePlayers.splice(index, 1);
-        state.draftedPlayers.push(player);
+        state.takenPlayers.push(player);
     }
 };
 
@@ -65,7 +65,7 @@ export const actions = {
     },
     async create ({commit}, {draft}) {
         commit('setLoading', {loading: true});
-        
+
 
         try {
             const created = await fetch('/api/v1/draft', {
@@ -85,7 +85,6 @@ export const actions = {
 
         try {
             const availablePlayers = await fetch('/api/v1/draft/board');
-            
             commit('setAvailablePlayers', {availablePlayers});
         }
         finally {

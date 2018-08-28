@@ -1,4 +1,4 @@
-"Rank","WSID","Overall","Team","Pos","Bye","Best","Worst","Avg","Std Dev","ADP","vs. ADP"
+"Rank","WSID","Name","Team","Pos","Bye","Best","Worst","Avg","Std Dev","ADP","vs. ADP"
 "1","","Todd Gurley","LAR","RB1","12","1","5","1.6","0.9","1.0","0.0"
 "2","","Le'Veon Bell","PIT","RB2","7","1","6","2.5","1.4","2.0","0.0"
 "3","","Ezekiel Elliott","DAL","RB3","8","1","8","3.2","1.2","3.0","0.0"
