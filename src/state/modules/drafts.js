@@ -1,48 +1,33 @@
-import fetch from '@/utils/fetch';
 import findIndex from 'lodash/findIndex';
-import keyBy from 'lodash/keyBy';
+import standardRankings from '../../../data/2018-08-28_standard.json';
+import pprRankings from '../../../data/2018-08-28_ppr.json';
 
 export const state = {
-    active: null,
-    list: [],
-    map: {},
+    leagueSize: 10,
+    leagueType: 'standard',
+    round: 1,
+    pick: 1,
     availablePlayers: [],
     draftedPlayers: [],
     takenPlayers: []
 };
 
 export const mutations = {
-    addCreatedDraft (state, {draft}) {
-        const mapItem = {
-            [draft.id]: draft
-        };
-
-        state.list = state.list.concat(draft);
-        state.map = Object.assign({}, state.map, mapItem);
-    },
-    setActive (state, {draft}) {
-        state.active = draft;
+    setConfig (state, {type, size}) {
+        state.leagueType = type;
+        state.leagueSize = size;
     },
     setAvailablePlayers (state, {availablePlayers}) {
         state.availablePlayers = availablePlayers;
     },
-    setList (state, {list}) {
-        state.list = list;
-    },
-    setLoading (state, {loading}) {
-        state.loading = loading;
-    },
-    setMap (state, {map}) {
-        state.map = map;
-    },
     setPlayerDrafted (state, {player}) {
-        const index = findIndex(state.availablePlayers, {Rank: player.Rank});
+        const index = findIndex(state.availablePlayers, {rank: player.rank});
 
         state.availablePlayers.splice(index, 1);
         state.draftedPlayers.push(player);
     },
     setPlayerTaken (state, {player}) {
-        const index = findIndex(state.availablePlayers, {Rank: player.Rank});
+        const index = findIndex(state.availablePlayers, {rank: player.rank});
 
         state.availablePlayers.splice(index, 1);
         state.takenPlayers.push(player);
@@ -50,46 +35,26 @@ export const mutations = {
 };
 
 export const actions = {
-    async fetch ({commit}) {
-        commit('setLoading', {loading: true});
+    init ({commit}) {
+        const config = (window.location.search || '')
+            .slice(1) // remove `?`
+            .split('&')
+            .map(kv => kv.split('='))
+            .reduce((memo, [key, value]) => {
+                memo[key] = value;
 
-        try {
-            const created = await fetch('/api/v1/drafts');
-
-            commit('setList', {list: created.drafts});
-            commit('setMap', {map: keyBy(created.drafts, 'id')});
-        }
-        finally {
-            commit('setLoading', {loading: false});
-        }
-    },
-    async create ({commit}, {draft}) {
-        commit('setLoading', {loading: true});
-
-
-        try {
-            const created = await fetch('/api/v1/draft', {
-                method: 'POST',
-                body: JSON.stringify(draft)
+                return memo;
+            }, {
+                type: 'standard',
+                size: 10
             });
 
-            commit('setActive', {draft: created.draft});
-            commit('addCreatedDraft', {draft: created.draft});
-        }
-        finally {
-            commit('setLoading', {loading: false});
-        }
+        commit('setConfig', config);
     },
-    async getAvailablePlayers ({commit}) {
-        commit('setLoading', {loading: true});
+    async getAvailablePlayers ({state, commit}) {
+        const availablePlayers = state.leagueType === 'standard' ? standardRankings : pprRankings;
 
-        try {
-            const availablePlayers = await fetch('/api/v1/draft/board');
-            commit('setAvailablePlayers', {availablePlayers});
-        }
-        finally {
-            commit('setLoading', {loading: false});
-        }
+        commit('setAvailablePlayers', {availablePlayers});
     },
     async draftPlayer ({commit}, {player}) {
         commit('setPlayerDrafted', {player});
