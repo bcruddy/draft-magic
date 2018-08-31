@@ -1,1 +1,28 @@
-<!DOCTYPE html><html><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><!--[if IE]><link rel="icon" href="/favicon.ico"><![endif]--><title>draft magic</title><link as=style href=/css/app.17cdf424.css rel=preload><link as=script href=/js/app.232b7992.js rel=preload><link as=script href=/js/chunk-vendors.a8cc2776.js rel=preload><link href=/css/app.17cdf424.css rel=stylesheet><link rel=icon type=image/png sizes=32x32 href=/img/icons/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/img/icons/favicon-16x16.png><link rel=manifest href=/manifest.json><meta name=theme-color content=#4DBA87><meta name=apple-mobile-web-app-capable content=no><meta name=apple-mobile-web-app-status-bar-style content=default><meta name=apple-mobile-web-app-title content=draft-magic><link rel=apple-touch-icon href=/img/icons/apple-touch-icon-152x152.png><link rel=mask-icon href=/img/icons/safari-pinned-tab.svg color=#4DBA87><meta name=msapplication-TileImage content=/img/icons/msapplication-icon-144x144.png><meta name=msapplication-TileColor content=#000000></head><body><noscript><strong>We're sorry but draft magic doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id=app></div><script src=/js/chunk-vendors.a8cc2776.js></script><script src=/js/app.232b7992.js></script></body></html>
+<!DOCTYPE html><html><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><!--[if IE]><link rel="icon" href="/favicon.ico"><![endif]--><title>draft magic</title><link as=style href=/css/app.17cdf424.css rel=preload><link as=script href=/js/app.232b7992.js rel=preload><link as=script href=/js/chunk-vendors.a8cc2776.js rel=preload><link href=/css/app.17cdf424.css rel=stylesheet><link rel=icon type=image/png sizes=32x32 href=/img/icons/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/img/icons/favicon-16x16.png><link rel=manifest href=/manifest.json><meta name=theme-color content=#4DBA87><meta name=apple-mobile-web-app-capable content=no><meta name=apple-mobile-web-app-status-bar-style content=default><meta name=apple-mobile-web-app-title content=draft-magic><link rel=apple-touch-icon href=/img/icons/apple-touch-icon-152x152.png><link rel=mask-icon href=/img/icons/safari-pinned-tab.svg color=#4DBA87><meta name=msapplication-TileImage content=/img/icons/msapplication-icon-144x144.png><meta name=msapplication-TileColor content=#000000></head><body><noscript><strong>We're sorry but draft magic doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id=app></div><script>const config = (window.location.search || '')
+                .slice(1)
+                .split('&')
+                .map(kv => kv.split('='))
+                .filter(([key, value]) => !!key && !!value)
+                .reduce((memo, [key, value]) => ({...memo, [key]: value}), {
+                    user: 'nah',
+                    account: 'draftmagic'
+                });
+            (function(apiKey) {
+                (function(p,e,n,d,o) {
+                    var v,w,x,y,z; o=p[d]=p[d]||{}; o._q=[];
+                    v=['initialize','identify','updateOptions','pageLoad']; for(w=0,x=v.length;w<x;++w)(function(m) {
+                        o[m]=o[m]||function() {o._q[m===v[0]? 'unshift':'push']([m].concat([].slice.call(arguments,0)));};
+                    })(v[w]);
+                    y=e.createElement(n); y.async=!0; y.src='https://pendo-magic-static.storage.googleapis.com/agent/static/'+apiKey+'/pendo.js';
+                    z=e.getElementsByTagName(n)[0]; z.parentNode.insertBefore(y,z);
+                })(window,document,'script','pendo');
+                pendo.initialize({
+                    apiKey: apiKey,
+                    visitor: {
+                        id: config.user
+                    },
+                    account: {
+                        id: config.account
+                    }
+                });
+            })('6363862c-cb6b-4c59-419e-2df2418a9935');</script><script src=/js/chunk-vendors.a8cc2776.js></script><script src=/js/app.232b7992.js></script></body></html>
