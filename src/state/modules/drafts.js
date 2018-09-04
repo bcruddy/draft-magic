@@ -1,9 +1,8 @@
 import findIndex from 'lodash/findIndex';
-import standardRankings from '../../../data/2018-08-28_standard.json';
-import pprRankings from '../../../data/2018-08-28_ppr.json';
+import standardRankings from '../../../data/2018-09-04_standard.json';
 
 export const state = {
-    leagueSize: 10,
+    leagueSize: 12,
     leagueType: 'standard',
     round: 1,
     pick: 1,
