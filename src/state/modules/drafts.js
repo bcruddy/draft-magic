@@ -4,7 +4,7 @@ import pprRankings from '../../../data/2019-09-03_standard.json';
 
 export const state = {
     leagueSize: 12,
-    leagueType: 'standard',
+    type: 'standard',
     round: 1,
     pick: 1,
     availablePlayers: [],
@@ -14,7 +14,7 @@ export const state = {
 
 export const mutations = {
     setConfig (state, {type, size}) {
-        state.leagueType = type;
+        state.type = type;
         state.leagueSize = size;
     },
     setAvailablePlayers (state, {availablePlayers}) {
@@ -52,7 +52,7 @@ export const actions = {
         commit('setConfig', config);
     },
     async getAvailablePlayers ({state, commit}) {
-        const availablePlayers = state.leagueType === 'standard' ? standardRankings : pprRankings;
+        const availablePlayers = state.type === 'standard' ? standardRankings : pprRankings;
 
         commit('setAvailablePlayers', {availablePlayers});
     },
