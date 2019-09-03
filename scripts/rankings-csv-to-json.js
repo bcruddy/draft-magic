@@ -19,7 +19,7 @@ async function convertCsvToJson () {
             .reduce((list, p) => {
                 try {
                     p.vsADP = p.vs[' ADP'];
-                
+
                     delete p.vs;
                 }
                 catch (ex) {
@@ -50,7 +50,7 @@ async function convertCsvToJson () {
                 if (!aRank || !bRank) {
                     return -1;
                 }
-                
+
                 return aRank > bRank ? 1 : -1;
             });
 
@@ -87,4 +87,3 @@ async function readDir (directory) {
         });
     });
 }
-
