@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.5a94edbcae705f7e2c8c3b4b47216359.js"
+  "/precache-manifest.adb12ecdff3a7e07666e4472ddc0d7b3.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "draft-magic"});
