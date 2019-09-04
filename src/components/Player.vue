@@ -24,10 +24,18 @@
             {{player.vsadp}}
         </td>
         <td>
-            <button @click="draft({player})">Draft</button>
+            <button
+                v-if="showControls"
+                @click="draft({player})">
+                Draft
+            </button>
         </td>
         <td>
-            <button @click="taken({player})">Taken</button>
+            <button
+                v-if="showControls"
+                @click="taken({player})">
+                Taken
+            </button>
         </td>
     </tr>
 </template>
@@ -54,6 +62,11 @@ export default {
             isRankSteal: false,
             isRankReach: false
         };
+    },
+    computed: {
+        showControls () {
+            return type !== 'drafted' && type !== 'taken';
+        }
     },
     methods: {
         ...mapActions({
