@@ -65,7 +65,7 @@ export default {
     },
     computed: {
         showControls () {
-            return type !== 'drafted' && type !== 'taken';
+            return this.type !== 'drafted' && this.type !== 'taken';
         }
     },
     methods: {
