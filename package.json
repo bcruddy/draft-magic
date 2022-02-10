@@ -42,7 +42,7 @@
     "babel-jest": "^23.0.1",
     "csvtojson": "^2.0.6",
     "node-pg-migrate": "^3.7.0",
-    "node-sass": "^4.9.0",
+    "node-sass": "^7.0.0",
     "sass-loader": "^7.0.1",
     "vue-template-compiler": "^2.5.16"
   },
